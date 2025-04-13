@@ -1,10 +1,6 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import StoreViewSet
-
-router = DefaultRouter()
-router.register(r'stores', StoreViewSet)
+from django.urls import path
+from .views import store_list
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('stores/', store_list, name='store-list'),
 ]

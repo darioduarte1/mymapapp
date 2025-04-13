@@ -5,13 +5,15 @@ class Store(models.Model):
         ('ACTIVO', 'Activo'),
         ('VISITADO', 'Visitado'),
         ('NO_INTERESADO', 'No interesado'),
+        ('POR_VALIDAR', 'Por validar'),
     ]
 
     name = models.CharField(max_length=100)
-    address = models.CharField(max_length=255)
     latitude = models.FloatField()
     longitude = models.FloatField()
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='ACTIVO')
+
+    address = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     last_visit = models.DateField(null=True, blank=True)
     description = models.TextField(blank=True)
