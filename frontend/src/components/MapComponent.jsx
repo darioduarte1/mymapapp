@@ -1,4 +1,3 @@
-// frontend/src/components/MapComponent.jsx
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -31,9 +30,12 @@ const MapComponent = ({ stores, onSelectStore }) => {
       !isNaN(store.longitude)
   );
 
+  console.log('📍 Total stores:', stores.length);
+  console.log('✅ Valid stores:', validStores.length);
+
   return (
     <MapContainer
-      center={[38.7169, -9.1399]} // por defecto Lisboa
+      center={[40.4168, -3.7038]}
       zoom={6}
       style={{ height: '100vh', width: '100%' }}
     >
@@ -47,7 +49,10 @@ const MapComponent = ({ stores, onSelectStore }) => {
           position={[store.latitude, store.longitude]}
           icon={createIcon(getColor(store.status))}
           eventHandlers={{
-            click: () => onSelectStore(store),
+            click: () => {
+              console.log('🖱️ CLICK en marcador:', store);  // 👈🏼 debug
+              onSelectStore(store);
+            },
           }}
         />
       ))}

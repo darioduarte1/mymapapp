@@ -65,7 +65,9 @@ const App = () => {
 
   return (
     <div className="App app-container">
-      <button className="register-button" onClick={() => setShowModal(true)}>Registrar local</button>
+      <button className="register-button" onClick={() => setShowModal(true)}>
+        Registrar local
+      </button>
 
       {showModal && (
         <div className="modal-overlay">
@@ -78,20 +80,29 @@ const App = () => {
               placeholder="Nombre del local"
               className="modal-input"
             />
-            <button className="confirm-button" onClick={handleRegisterLocal}>Registrar</button>
-            <button className="cancel-button" onClick={() => setShowModal(false)}>Cancelar</button>
+            <button className="confirm-button" onClick={handleRegisterLocal}>
+              Registrar
+            </button>
+            <button className="cancel-button" onClick={() => setShowModal(false)}>
+              Cancelar
+            </button>
           </div>
         </div>
       )}
 
       {stores.length > 0 ? (
         <>
-          <MapComponent stores={stores} onSelectStore={setSelectedStore} />
+          <MapComponent
+            stores={stores}
+            onSelectStore={(store) => {
+              console.log('🖱️ Clic en tienda:', store);
+              setSelectedStore(store);
+            }}
+          />
+
           {selectedStore && (
             <StoreCard
               store={selectedStore}
-              onClose={() => setSelectedStore(null)}
-              onEdit={() => handleEditStore(selectedStore)}
             />
           )}
         </>
