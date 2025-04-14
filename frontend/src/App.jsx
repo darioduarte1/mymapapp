@@ -11,20 +11,17 @@ const App = () => {
   const [newStoreName, setNewStoreName] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/stores/')
-      .then(res => {
-        const storesConEstado = res.data.map(store => ({
+    axios
+      .get('http://localhost:8000/api/stores/')
+      .then((res) => {
+        const storesConEstado = res.data.map((store) => ({
           ...store,
           status: store.status || 'ACTIVO',
         }));
         setStores(storesConEstado);
       })
-      .catch(err => console.error('❌ Error cargando tiendas:', err));
+      .catch((err) => console.error('❌ Error cargando tiendas:', err));
   }, []);
-
-  const handleEditStore = (store) => {
-    console.log('🛠️ Editar tienda:', store);
-  };
 
   const handleRegisterLocal = () => {
     if (!navigator.geolocation) {
@@ -32,40 +29,47 @@ const App = () => {
       return;
     }
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
 
-      const nuevaTienda = {
-        name: newStoreName,
-        latitude: latitude,
-        longitude: longitude,
-        status: 'POR VALIDAR',
-        address: '',
-        phone: '',
-        last_visit: null,
-        description: '',
-        systems: null,
-        client_info: ''
-      };
+        const nuevaTienda = {
+          name: newStoreName,
+          latitude,
+          longitude,
+          status: 'POR VALIDAR',
+          address: '',
+          phone: '',
+          last_visit: null,
+          description: '',
+          systems: null,
+          client_info: '',
+        };
 
-      axios.post('http://localhost:8000/api/stores/', nuevaTienda)
-        .then(res => {
-          setStores([...stores, res.data]);
-          setShowModal(false);
-          setNewStoreName('');
-        })
-        .catch(err => {
-          console.error('❌ Error registrando local:', err);
-          alert('Error al registrar el local. Revisa los datos enviados.');
-        });
-    }, () => {
-      alert('No se pudo obtener la ubicación.');
-    });
+        axios
+          .post('http://localhost:8000/api/stores/', nuevaTienda)
+          .then((res) => {
+            setStores([...stores, res.data]);
+            setShowModal(false);
+            setNewStoreName('');
+          })
+          .catch((err) => {
+            console.error('❌ Error registrando local:', err);
+            alert('Error al registrar el local. Revisa los datos enviados.');
+          });
+      },
+      () => {
+        alert('No se pudo obtener la ubicación.');
+      }
+    );
   };
 
   return (
     <div className="App app-container">
-      <button className="register-button" onClick={() => setShowModal(true)}>
+      <button
+        className="register-button"
+        onClick={() => setShowModal(true)}
+      >
         Registrar local
       </button>
 
@@ -101,9 +105,7 @@ const App = () => {
           />
 
           {selectedStore && (
-            <StoreCard
-              store={selectedStore}
-            />
+            <StoreCard store={selectedStore} />
           )}
         </>
       ) : (
