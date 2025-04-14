@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MapComponent from './components/MapComponent.jsx';
 import StoreCard from './components/StoreCard.jsx';
+import Header from './components/Header.jsx';
 import './App.css';
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
 
   return (
     <div className="App app-container">
+      <Header />
       <button
         className="register-button"
         onClick={() => setShowModal(true)}
