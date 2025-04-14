@@ -30,8 +30,7 @@ pip install -r requirements.txt
 
 
 ### 3. Configura y corre el backend (Django)
-python manage.py migrate
-python manage.py runserver
+./start-backend.sh
 
 Backend disponible en: http://127.0.0.1:8000
 
