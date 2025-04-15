@@ -67,13 +67,7 @@ const App = () => {
 
   return (
     <div className="App app-container">
-      <Header />
-      <button
-        className="register-button"
-        onClick={() => setShowModal(true)}
-      >
-        Registrar local
-      </button>
+      <Header onOpenModal={() => setShowModal(true)} />
 
       {showModal && (
         <div className="modal-overlay">
@@ -106,9 +100,7 @@ const App = () => {
             }}
           />
 
-          {selectedStore && (
-            <StoreCard store={selectedStore} />
-          )}
+          {selectedStore && <StoreCard store={selectedStore} />}
         </>
       ) : (
         <p>Cargando mapa...</p>
